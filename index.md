@@ -76,14 +76,9 @@ describe('savePersonalInfo', () => {
 ![Trading bot](./img/trading-bot.gif)
 
 
-### Architecture
-
-![Bot architecture](./img/bot-architecture.gif)
-
-
 ### Order Lifecycle
 
-![Order lifecycle](./img/order-lifecycle.gif)
+![Order lifecycle](./img/order-lifecycle.png)
 
 
 ### Orders
@@ -292,9 +287,9 @@ const nonSensicalOrder: Order = {
 ```
 
 
-### IDE Help?
+### This is the help from your IDE
 
-![No IDE help](./img/no-ide-help.gif)
+![No IDE help](./img/no-ide-help.webp)
 
 
 ### Same, same with broker messages
@@ -357,11 +352,11 @@ const successfulPurchase: Order = updateOrder(
 ```
 
 
-### Is TS useful at all?
+### Is <img class="ts" src="./img/ts-logo-white.svg"/> useful after all?
 
 ```javascript
-// Almost as safe as plain JS
-// But plain JS is cheaper, no need to write types!
+// Is it much more safer than plain JS?
+// Note that plain JS is cheaper, no need to write types!
 const nonSensicalOrder = {
   kind: PURCHASE,
   status: TRADED,
@@ -724,9 +719,7 @@ const successfulSell = fulfilOrder(acceptedSell, {
 ## <img class="ts" src="./img/ts-logo-white.svg"/> in the Wild Frontier
 
 
-### Data enters our system without <img class="ts" src="./img/ts-logo-white.svg"/> checks!
-
-![Unsafe data](./imgs/unsafe-data.gif)
+## Data enters our system <em style="color: yellow">without</em> <img class="ts" src="./img/ts-logo-white.svg"/> checks!
 
 
 ### What's the type of data coming from JS?
