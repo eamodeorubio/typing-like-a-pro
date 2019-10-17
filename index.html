@@ -1,0 +1,203 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Typing Like a Pro (with TypeScript)</title>
+
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<!-- <link rel="stylesheet" href="lib/css/monokai.css"> -->
+	<!-- <link rel="stylesheet" href="lib/css/tomorrow-night.css"> -->
+	<link rel="stylesheet" href="lib/css/atom-one-dark-reasonable.css">
+
+	<style>
+		@font-face {
+			font-family: 'Fira Code';
+			src: url('lib/font/FiraCode/eot/FiraCode-Light.eot');
+			src: url('lib/font/FiraCode/eot/FiraCode-Light.eot') format('embedded-opentype'),
+				url('lib/font/FiraCode/woff2/FiraCode-Light.woff2') format('woff2'),
+				url('lib/font/FiraCode/woff/FiraCode-Light.woff') format('woff'),
+				url('lib/font/FiraCode/ttf/FiraCode-Light.ttf') format('truetype');
+			font-weight: 300;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: 'Fira Code';
+			src: url('lib/font/FiraCode/eot/FiraCode-Regular.eot');
+			src: url('lib/font/FiraCode/eot/FiraCode-Regular.eot') format('embedded-opentype'),
+				url('lib/font/FiraCode/woff2/FiraCode-Regular.woff2') format('woff2'),
+				url('lib/font/FiraCode/woff/FiraCode-Regular.woff') format('woff'),
+				url('lib/font/FiraCode/ttf/FiraCode-Regular.ttf') format('truetype');
+			font-weight: 400;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: 'Fira Code';
+			src: url('lib/font/FiraCode/eot/FiraCode-Medium.eot');
+			src: url('lib/font/FiraCode/eot/FiraCode-Medium.eot') format('embedded-opentype'),
+				url('lib/font/FiraCode/woff2/FiraCode-Medium.woff2') format('woff2'),
+				url('lib/font/FiraCode/woff/FiraCode-Medium.woff') format('woff'),
+				url('lib/font/FiraCode/ttf/FiraCode-Medium.ttf') format('truetype');
+			font-weight: 500;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: 'Fira Code';
+			src: url('lib/font/FiraCode/eot/FiraCode-Bold.eot');
+			src: url('lib/font/FiraCode/eot/FiraCode-Bold.eot') format('embedded-opentype'),
+				url('lib/font/FiraCode/woff2/FiraCode-Bold.woff2') format('woff2'),
+				url('lib/font/FiraCode/woff/FiraCode-Bold.woff') format('woff'),
+				url('lib/font/FiraCode/ttf/FiraCode-Bold.ttf') format('truetype');
+			font-weight: 700;
+			font-style: normal;
+		}
+
+		.reveal section img {
+			border: none;
+		}
+
+		.reveal pre {
+			width: 100%;
+		}
+
+		.reveal pre code {
+			max-height: none;
+			overflow: hidden;
+		}
+
+		.reveal table,
+		.reveal table td,
+		.reveal table th {
+			border: 1px solid #fff
+		}
+
+		.reveal table tbody td {
+			font-size: 0.8em;
+			vertical-align: middle;
+		}
+
+		.reveal table tbody td[align="right"],
+		.reveal table th {
+			font-size: 1em;
+			font-weight: bolder;
+			color: rgb(255, 255, 210)
+		}
+
+		.reveal pre code,
+		.reveal code {
+			font-family: "Fira Code";
+			font-variant-ligatures: common-ligatures;
+			--webkit-font-feature-settings: "calt"1;
+			/* Enable ligatures for IE 10+, Edge */
+			font-feature-settings: "calt"1;
+			/* Enable ligatures for IE 10+, Edge */
+			text-rendering: optimizeLegibility;
+			/* Force ligatures for Webkit, Blink, Gecko */
+		}
+
+		.reveal h1,
+		.reveal h2,
+		.reveal h3,
+		.reveal h4 {
+			text-transform: none
+		}
+
+		code {
+			color: #98c379;
+		}
+
+		.flaky {
+			color: red;
+			animation: flakiness 1s infinite;
+		}
+
+		.bad {
+			color: red;
+		}
+
+		.good {
+			color: green;
+		}
+
+		@keyframes flakiness {
+			0% {
+				color: red;
+			}
+
+			50% {
+				color: green;
+			}
+		}
+
+		em {
+			/* color: yellow; */
+			color: rgb(0, 160, 100);
+		}
+
+		.ts-bg-color {
+			background-color: #294E80;
+		}
+
+		.reveal .ts {
+			display: inline-block;
+			margin: 0;
+			height: 1em;
+			background-color: transparent;
+			position: relative;
+			top: 0.25em;
+		}
+	</style>
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section data-markdown="./index.md" data-separator="^\n\n" data-separator-notes="^Note:"></section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			history: true,
+			controls: false,
+			width: 1280,
+			height: 800,
+			// width: "100%",
+			// height: "100%",
+			margin: 0.1,
+			minScale: 0.2,
+			maxScale: 5,
+			dependencies: [
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/notes/notes.js', async: true },
+				{ src: 'plugin/highlight/highlight.js', async: true }
+			]
+		});
+	</script>
+</body>
+
+</html>
