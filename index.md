@@ -1,7 +1,7 @@
-![Cover](./img/MI19_COVERslide_16-9.png) <!-- .element style="max-height:100%;padding:0;margin:0"-->
+![Cover](./img/MI19_COVERslide_16-9.png)
 
 
-![Title](./img/MI19_COVERslide_16-9_title.png) <!-- .element style="max-height:100%;padding:0;margin:0"-->
+![Title](./img/MI19_COVERslide_16-9_title.png)
 
 
 # @eamodeorubio <!-- .element: style="color: yellow;text-transform: none" -->
