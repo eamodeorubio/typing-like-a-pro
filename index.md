@@ -1,3 +1,9 @@
+![Cover](./img/MI19_COVERslide_16-9.png) <!-- .element style="max-height:100%;padding:0;margin:0"-->
+
+
+![Title](./img/MI19_COVERslide_16-9_title.png) <!-- .element style="max-height:100%;padding:0;margin:0"-->
+
+
 # @eamodeorubio <!-- .element: style="color: yellow;text-transform: none" -->
 
 <a href="https://www.contentful.com/" rel="nofollow" target="_blank"><img src="img/contentful.svg" style="max-width:600px;border:none;background:none;" alt="Powered by Contentful" /></a>
@@ -48,7 +54,7 @@ function savePersonalInfo(data: PersonalInfo): Promise<void>
 ```
 
 
-### And removing boilerplaty tests
+### And removing boilerplate tests
 
 ```javascript
 describe('savePersonalInfo', () => {
@@ -849,24 +855,21 @@ export function train(pet: unknown): PetBehaviour {
 import { Pet, isPet, ops } from '../../core'
 import { errorTracker } from 'famous-error-tracker'
 import { db } from '../../db'
+
 export function mount(router: Router): void {
   router.put('/train', async ctx => {
     const pet: unknown = ctx.request.body
-
     if(!isPet(pet)) {
       ctx.response.status = 400
       return
     }
-    
     const newBehaviour = ops.train(pet)
-
     const dbResult = await db.save(newBehaviour)
     if(!dbResult.ok) {
       errorTracker.error(dbResult.error)
       ctx.response.status = 500
       return 
     }
-
     ctx.response.status = 200
     ctx.response.body = newBehaviour
   })
