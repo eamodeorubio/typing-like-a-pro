@@ -302,6 +302,7 @@ const nonSensicalOrder: Order = {
 
 ```typescript
 interface BrokerMsg {
+
   brokerId: string
   errorMsg?: string
   sellPrice?: number
@@ -490,8 +491,8 @@ interface LoginSuccessData {
 ```typescript
 type DataForEventOf<K extends EventKind> =
   K extends EventKind.LOGIN ? LoginData :
-  K extends EventKind.LOGIN_SUCCESS ? LoginData :
-  // ... K extends EventKind.OTHER_KIND ? LoginData :
+  K extends EventKind.LOGIN_SUCCESS ? LoginSuccessData :
+  // ... K extends EventKind.OTHER_KIND ? OtherKindData :
   never
 
 type Event<K extends EventKind> = { kind: K } & DataForEventOfKind<K>  
@@ -657,11 +658,9 @@ type OrderPending =
 type OrderFailed =
   { status: OrderStatus.FAILED } & Acked & Failed
 
-type PurchaseOrderTraded =
-  { status: OrderStatus.TRADED } & Acked & Traded<OrderKind.PURCHASE>
-
-type SellOrderTraded =
-  { status: OrderStatus.TRADED} & Acked & Traded<OrderKind.SELL>
+// We can even remove PurchaseOrderTraded and SellOrderTraded now!
+type OrderTraded<K extends OrderKind> =
+  { status: OrderStatus.TRADED } & Acked & Traded<K>
 ```
 
 
@@ -757,7 +756,7 @@ export function train(pet: Pet): PetBehaviour {
 ```javascript
 // third-party-user.js
 
-import {train} from 'pet-trainer'
+import { train } from 'pet-trainer'
 
 // This is legal JS, no TS compiler here!
 const petBehaviour = train({
