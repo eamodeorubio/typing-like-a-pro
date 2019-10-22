@@ -836,7 +836,6 @@ import { Pet, isPet, ops } from './model'
 
 // Overload will help IDE to give TS consumers hints
 export function train(pet: Pet): boolean;
-export function train(pet: unknown): never; // never -> it will throw
 export function train(pet: unknown): PetBehaviour {
   if(isPet(pet)) {
     return ops.train(pet) // ops.train(pet: Pet): PetBehaviour
