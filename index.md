@@ -302,7 +302,6 @@ const nonSensicalOrder: Order = {
 
 ```typescript
 interface BrokerMsg {
-
   brokerId: string
   errorMsg?: string
   sellPrice?: number
@@ -817,7 +816,7 @@ export const isPet = (x: unknown): x is Pet =>
 // index.ts
 
 // Real implementation hidden in another module
-import { Pet, isPet, ops } from './core'
+import { Pet, PetBehaviour, isPet, ops } from './core'
 
 // This is what consumer code sees
 export function train(pet: unknown): PetBehaviour {
@@ -832,7 +831,10 @@ export function train(pet: unknown): PetBehaviour {
 ### Better experience for TS users
 
 ```typescript
-import { Pet, isPet, ops } from './model'
+import { Pet, PetBehaviour, isPet, ops } from './core'
+
+// Re-export types and typeguards for TS consumers
+export { Pet, PetBehaviour, isPet } from './core'
 
 // Overload will help IDE to give TS consumers hints
 export function train(pet: Pet): boolean;
