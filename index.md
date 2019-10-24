@@ -144,9 +144,9 @@ describe('savePersonalInfo', () => {
 
 ```typescript
 interface PurchaseOrder {
-  stock: string
-  maxPrice: number
-  maxQuantity: number
+  stock: StockSymbol
+  maxPrice: Money
+  maxQuantity: Money
 }
 ```
 
@@ -155,11 +155,11 @@ interface PurchaseOrder {
 
 ```typescript
 interface PurchaseOrder {
-  stock: string
-  maxPrice: number
-  maxQuantity: number
+  stock: StockSymbol
+  maxPrice: Money
+  maxQuantity: Natural
   // For pending
-  brokerId: string
+  brokerId: ID
 }
 ```
 
@@ -168,11 +168,11 @@ interface PurchaseOrder {
 
 ```typescript
 interface PurchaseOrder {
-  stock: string
-  maxPrice: number
-  maxQuantity: number
+  stock: StockSymbol
+  maxPrice: Money
+  maxQuantity: Natural
   // For pending
-  brokerId: string
+  brokerId: ID
   // For failed
   errorMsg: string
 }
@@ -183,16 +183,16 @@ interface PurchaseOrder {
 
 ```typescript
 interface PurchaseOrder {
-  stock: string
-  maxPrice: number
-  maxQuantity: number
+  stock: StockSymbol
+  maxPrice: Money
+  maxQuantity: Natural
   // For pending
-  brokerId: string
+  brokerId: ID
   // For failed
   errorMsg: string
   // For traded
-  purchasePrice: number
-  unitsPurchased: number
+  purchasePrice: Money
+  unitsPurchased: Natural
 }
 ```
 
@@ -201,16 +201,16 @@ interface PurchaseOrder {
 
 ```typescript
 interface PurchaseOrder {
-  stock: string
-  maxPrice: number
-  maxQuantity: number
+  stock: StockSymbol
+  maxPrice: Money
+  maxQuantity: Natural
   // For pending
-  brokerId?: string
+  brokerId?: ID
   // For failed
   errorMsg?: string
   // For traded
-  purchasePrice?: number
-  unitsPurchased?: number
+  purchasePrice?: Money
+  unitsPurchased?: Natural
 }
 ```
 
@@ -232,16 +232,16 @@ enum OrderStatus {
 ```typescript
 interface PurchaseOrder {
   status: OrderStatus
-  stock: string
-  maxPrice: number
-  maxQuantity: number
+  stock: StockSymbol
+  maxPrice: Money
+  maxQuantity: Natural
   // For pending
-  brokerId?: string
+  brokerId?: ID
   // For failed
   errorMsg?: string
   // For traded
-  purchasePrice?: number
-  unitsPurchased?: number
+  purchasePrice?: Money
+  unitsPurchased?: Natural
 }
 ```
 
@@ -262,17 +262,17 @@ enum OrderKind {
 interface Order {
   kind: OrderKind
   status: OrderStatus
-  stock: string
-  minPrice?: number
-  maxPrice?: number
-  minQuantity?: number
-  maxQuantity?: number
-  brokerId?: string
+  stock: StockSymbol
+  minPrice?: Money
+  maxPrice?: Money
+  minQuantity?: Natural
+  maxQuantity?: Natural
+  brokerId?: ID
   errorMsg?: string
-  sellPrice?: number
-  purchasePrice?: number
-  unitsPurchased?: number
-  unitsSold?: number
+  sellPrice?: Money
+  purchasePrice?: Money
+  unitsPurchased?: Natural
+  unitsSold?: Natural
 }
 ```
 
@@ -302,12 +302,12 @@ const nonSensicalOrder: Order = {
 
 ```typescript
 interface BrokerMsg {
-  brokerId: string
+  brokerId: ID
   errorMsg?: string
-  sellPrice?: number
-  purchasePrice?: number
-  unitsPurchased?: number
-  unitsSold?: number
+  sellPrice?: Money
+  purchasePrice?: Money
+  unitsPurchased?: Natural
+  unitsSold?: Natural
 }
 ```
 
@@ -530,16 +530,16 @@ type Order<K extends OrderKind, S extends OrderStatus> = {
 ```typescript
 interface PurchaseOrderDetails {
   kind: OrderKind.PURCHASE
-  stock: string
-  maxPrice: number
-  maxQuantity: number
+  stock: StockSymbol
+  maxPrice: Money
+  maxQuantity: Natural
 }
 
 interface SellOrderDetails {
   kind: OrderKind.SELL
-  stock: string
-  minPrice: number
-  minQuantity: number
+  stock: StockSymbol
+  minPrice: Money
+  minQuantity: Natural
 }
 
 type OrderDetails<O extends OrderKind> =
@@ -557,20 +557,20 @@ interface OrderCreated {
 }
 interface OrderPending {
   status: OrderStatus.PENDING
-  brokerId: string
+  brokerId: ID
 }
 interface OrderFailed {
   status: OrderStatus.FAILED
-  brokerId: string
+  brokerId: ID
   errorMsg: string
 }
 interface OrderTraded {
   status: OrderStatus.TRADED
-  brokerId: string
-  sellPrice?: number // Ooops, those `?` again!!
-  purchasePrice?: number
-  unitsPurchased?: number
-  unitsSold?: number
+  brokerId: ID
+  sellPrice?: Money // Ooops, those `?` again!!
+  purchasePrice?: Money
+  unitsPurchased?: Natural
+  unitsSold?: Natural
 }
 ```
 
@@ -581,16 +581,16 @@ interface OrderTraded {
 ```typescript
 interface PurchaseOrderTraded {
   status: OrderStatus.TRADED
-  brokerId: string
-  purchasePrice: number
-  unitsPurchased: number
+  brokerId: ID
+  purchasePrice: Money
+  unitsPurchased: Natural
 }
 
 interface SellOrderTraded {
   status: OrderStatus.TRADED
-  brokerId: string
-  sellPrice: number
-  unitsSold: number
+  brokerId: ID
+  sellPrice: Money
+  unitsSold: Natural
 }
 
 type OrderTraded<K extends OrderKind> =
@@ -621,18 +621,18 @@ type Order<K extends OrderKind, S extends OrderStatus> = {
 
 ```typescript
 interface Acked {
-  brokerId: string
+  brokerId: ID
 }
 interface Failed {
-  errorMsg: string
+  errorMsg: ID
 }
 interface Purchased {
-  purchasePrice: number
-  unitsPurchased: number
+  purchasePrice: Money
+  unitsPurchased: Natural
 }
 interface Sold {
-  sellPrice: number
-  unitsSold: number
+  sellPrice: Money
+  unitsSold: Natural
 }
 type Traded<K extends OrderKind> = 
   K extends OrderKind.PURCHASE ? Purchased :
