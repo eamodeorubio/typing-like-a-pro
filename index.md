@@ -87,14 +87,15 @@ describe('savePersonalInfo', () => {
 ![Order lifecycle](./img/order-lifecycle.png)
 
 
-### Orders
+### <em>Purchase</em> & <em>Sell</em> orders are different
+<!-- ### Orders
 
 * The market takes time to trade orders
 * Some orders can be `failed` because:
   * The trade was not done after some specified time
   * They contained some error, like bad stock symbol
 * Keep track of the "broker" `orderId` for further reference
-* Two kinds: <em>purchase</em> & <em>sell</em>
+* Two kinds: <em>purchase</em> & <em>sell</em> -->
 
 
 ### Purchase order
@@ -106,7 +107,7 @@ describe('savePersonalInfo', () => {
 
 
 ### Purchase order
-#### Success
+#### Traded
 
 * What was the actual purchase price
 * How many shares were actually puchased
@@ -121,7 +122,7 @@ describe('savePersonalInfo', () => {
 
 
 ### Sell order
-#### Success
+#### Traded
 
 * What was the actual sell price
 * How many shares were actually sold
@@ -132,11 +133,10 @@ describe('savePersonalInfo', () => {
 | Type     | Created | Pending | Failed | Traded |
 | ---:      | :---:     | :---:    | :---:    | :---: |
 | Purchase | `stock`, `maxPrice`, `maxQuantity` | +`brokerId` | +`error` | +`puchasePrice`, +`unitsPurchased` |
-| Sell | `stock`, `minPrice`, `minQuantity`, `maxQuantity` | +`brokerId` | +`error` | +`sellPrice`, +`unitsSold` |
+| Sell | `stock`, `minPrice`, `minQuantity` | +`brokerId` | +`error` | +`sellPrice`, +`unitsSold` |
 
 
 ## Naïve approach
-#### (Use <img class="ts" src="./img/ts-logo-white.svg"/> like old Java)
 
 
 ### Start with a purchase
@@ -179,7 +179,7 @@ interface PurchaseOrder {
 ```
 
 
-### And success
+### And traded
 
 ```typescript
 interface PurchaseOrder {
@@ -190,7 +190,7 @@ interface PurchaseOrder {
   brokerId: string
   // For failed
   errorMsg: string
-  // For success
+  // For traded
   purchasePrice: number
   unitsPurchased: number
 }
@@ -395,7 +395,7 @@ interface Failure {
   error: string
 }
 
-interface Result {
+interface Ok {
   ok: true
   data: any
 }
@@ -473,12 +473,12 @@ enum EventKind {
   // More types...
 }
 
-interface LoginData {
+interface LoginPayload {
   username: string
   password: string
 }
 
-interface LoginSuccessData {
+interface LoginSuccessPayload {
   token: string
 }
 ```
@@ -488,17 +488,17 @@ interface LoginSuccessData {
 #### If this <span style="color: yellow">type</span> then that <span style="color: green">type</span>
 
 ```typescript
-type DataForEventOf<K extends EventKind> =
-  K extends EventKind.LOGIN ? LoginData :
-  K extends EventKind.LOGIN_SUCCESS ? LoginSuccessData :
-  // ... K extends EventKind.OTHER_KIND ? OtherKindData :
+type EventPayload<K extends EventKind> =
+  K extends EventKind.LOGIN ? LoginPayload :
+  K extends EventKind.LOGIN_SUCCESS ? LoginSuccessPayload :
+  // ... K extends EventKind.OTHER_KIND ? OtherKindPayload :
   never
 
-type Event<K extends EventKind> = { kind: K } & DataForEventOfKind<K>  
+type Event<K extends EventKind> = { kind: K } & EventPayload<K>  
 
 declare function dispatch<K extends EventKind>(
   eventKind: K,
-  data: DataForEventOfKind<K>
+  payload: EventPayload<K>
 ): Promise<void>;
 
 // Safe & IDE help
@@ -540,7 +540,6 @@ interface SellOrderDetails {
   stock: string
   minPrice: number
   minQuantity: number
-  maxQuantity: number
 }
 
 type OrderDetails<O extends OrderKind> =
@@ -667,13 +666,12 @@ type OrderTraded<K extends OrderKind> =
 
 ```typescript
 // Type safe, IDE help, non-verbose factory functions
-// Note D['kind']
 declare function createOrder<
   K extends OrderKind,
   D extends OrderDetails<K>
 >(
   details: D
-): Order<D['kind'], OrderStatus.CREATED>
+): Order<K, OrderStatus.CREATED>
 ```
 
 
@@ -704,7 +702,6 @@ declare function fulfilOrder<K extends OrderKind>(
 const newSell = createOrder({
   kind: OrderKind.SELL,
   minQuantity: 4,
-  maxQuantity: 10,
   minPrice: 300,
   stock: 'UTF'
 })
