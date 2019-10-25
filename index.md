@@ -54,7 +54,12 @@ function savePersonalInfo(data: PersonalInfo): Promise<void>
 ```
 
 
-### And removing boilerplate tests
+#### The more readable, the less boilerplate docs we need to write
+#### Focus effort on <span class="good">high value docs</span> (use cases, best practices, design, etc.)
+
+
+### Also removing boilerplate tests
+#### Type checker does those for you
 
 ```javascript
 describe('savePersonalInfo', () => {
@@ -72,9 +77,13 @@ describe('savePersonalInfo', () => {
 ```
 
 
-### Types gives a <em><span style="color: green">faster</span></em> feedback loop!
-#### By detecting <span style="color: red">silly mistakes</span> <em>as we type</em>
-#### And <em>removing</em> the need of some <span style="color: red">low value</span> tests 
+### Types gives a <em><span class="good">faster</span></em> feedback loop!
+#### By detecting <span class="bad">silly mistakes</span> <em>as you type</em>
+
+
+### Types gives a <em><span class="good">better DX</span></em>!
+#### By <em>removing</em> the need of some <span class="bad">low value</span> tests
+#### making the code much more <span class="good">boilerplate docs</span>
 
 
 ## A trading bot!
@@ -140,7 +149,7 @@ describe('savePersonalInfo', () => {
 
 
 ### Start with a purchase
-#### Add data from created state
+#### Add data from <em>created</em> state
 
 ```typescript
 interface PurchaseOrder {
@@ -151,7 +160,7 @@ interface PurchaseOrder {
 ```
 
 
-### Add data from the pending
+### Add data from the <span style="color: yellow">pending</span> state
 
 ```typescript
 interface PurchaseOrder {
@@ -164,7 +173,7 @@ interface PurchaseOrder {
 ```
 
 
-### There is also an error state
+### There is also an <span class="bad">error</span> state
 
 ```typescript
 interface PurchaseOrder {
@@ -179,7 +188,7 @@ interface PurchaseOrder {
 ```
 
 
-### And traded
+### And <span class="good">traded</span>💸
 
 ```typescript
 interface PurchaseOrder {
