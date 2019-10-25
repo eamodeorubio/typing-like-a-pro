@@ -700,7 +700,7 @@ declare function rejectOrder<K extends OrderKind>(
 declare function fulfilOrder<K extends OrderKind>(
   order: Order<K, OrderStatus.CREATED>,
   event: Traded<K>
-): Order<K, OrderStatus.PENDING>;
+): Order<K, OrderStatus.TRADED>;
 ```
 
 
